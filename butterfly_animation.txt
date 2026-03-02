@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Butterfly at End of H1 Text</title>
+    <style>
+      h1 {
+        display: inline-flex; /* text + container inline */
+        align-items: flex-start; /* align container to top of text */
+        background: #ddd;
+        margin: 0;
+      }
+
+      #my-container {
+        display: inline-block; /* sits right after text */
+        flex-direction: column;
+        vertical-align: top; /* aligns to top of text */
+        margin-left: 8px; /* small gap after text */
+      }
+
+      .rope {
+        width: 10px;
+        height: 10px;
+        perspective: 200px;
+        background-color: darkslateblue;
+      }
+
+      .crop {
+        height: 1200%;
+        width: 1200%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotate3d(2, 3, -2, 70deg);
+      }
+
+      .bodo {
+        position: absolute;
+        background-size: 100% 100%;
+      }
+
+      /* Body aligned to start of container */
+      .crop .head {
+        width: 26%;
+        height: 80%;
+        left: 0; /* start at left edge */
+        bottom: 50%;
+        background-image: url(fir_body.png);
+        transform: none; /* remove centering */
+      }
+
+      /* Left wing placed just before body */
+      .crop .left_wing {
+        width: 37%; /* proportional width */
+        height: 100%;
+        left: -26%; /* shift left of body */
+        bottom: 50%;
+        background-image: url(left_wing_3.png);
+        animation: lanimate 2s ease-in-out infinite;
+        transform-origin: right;
+      }
+      @keyframes lanimate {
+        0% {
+          transform: rotate3d(0, 1, 0, 80deg);
+        }
+        50% {
+          transform: rotate3d(0, 1, 0, 20deg);
+        }
+        100% {
+          transform: rotate3d(0, 1, 0, 80deg);
+        }
+      }
+
+      /* Right wing placed immediately after body */
+      .crop .right_wing {
+        width: 37%; /* proportional width */
+        height: 100%;
+        bottom: 50%;
+        left: 14%; /* start right after head */
+        background-image: url(right_wing_1.png);
+        animation: ranimate 2s ease-in-out infinite;
+        transform-origin: left;
+      }
+      @keyframes ranimate {
+        0% {
+          transform: rotate3d(0, 1, 0, -80deg);
+        }
+        50% {
+          transform: rotate3d(0, 1, 0, -20deg);
+        }
+        100% {
+          transform: rotate3d(0, 1, 0, -80deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2 style="margin-bottom: 100px">Drone</h2>
+
+    <h1>
+      Welcome to My Page
+      <div id="my-container">
+        <div class="rope">
+          <div class="crop">
+            <div class="left_wing bodo"></div>
+            <div class="head bodo"></div>
+            <div class="right_wing bodo"></div>
+          </div>
+        </div>
+      </div>
+    </h1>
+
+    <p>Other content continues here...</p>
+  </body>
+</html>
