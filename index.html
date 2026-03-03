@@ -2,25 +2,1145 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Portfolio</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css"
-    />
-  </head>
-  <body>
-    <div class="container-lg px-3 my-5 markdown-body">
-      <h1><a href="https://lord-ryuga.github.io/Portfolio/">Portfolio</a></h1>
-      <p>Welcome to my portfolio site! More content coming soon.</p>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-x: hidden;
+        font-family: sans-serif;
+        scroll-behavior: smooth;
+      }
+      #wrapper {
+        height: 100%;
+        overflow: hidden;
+      }
+      #content {
+        min-height: 200vh;
+      }
+      header {
+        display: none;
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      nav a {
+        margin: 0 0.5rem;
+        color: teal;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: darkorange;
+      }
+      section {
+        min-height: 100vh;
+        padding: 1em 6.8em;
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"
-      integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg="
-      crossorigin="anonymous"
-    ></script>
+        scroll-margin-top: 4rem;
+      }
+      #exp {
+        background: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #home {
+        background-image: url(rename_home.png);
+        display: flex;
+        background-size: cover;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #projects {
+        background-image: url(rename_home.png);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+      canvas {
+        width: 120%;
+        height: 80%;
+        background: #000;
+      }
+      .canvas-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: none;
+        color: white;
+        font-size: 1.4em;
+        font-weight: bold;
+        pointer-events: none;
+        padding: 10%;
+        opacity: 0;
+      }
+      .pro_img {
+        width: 50vh;
+        border-radius: 1em;
+      }
+      .pro_sub_test {
+        margin-left: 10rem;
+        padding: 3rem 0.5rem;
+      }
+      .profile-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav_p {
+        color: #3e5f66;
+        font-family: Georgia, serif;
+        font-style: italic;
+        line-height: 1.5;
+      }
+
+      .profile_h1 {
+        color: #3f8fb0;
+        font-style: italic;
+        font-family: "Franklin Gothic Medium", Arial, sans-serif;
+      }
+      .profile_h2 {
+        color: #3e5f66;
+        font-family: Georgia, serif;
+      }
+      h1 {
+        display: inline-flex; /* text + container inline */
+        align-items: flex-start; /* align container to top of text */
+        margin: 0;
+      }
+      #my-container {
+        display: inline-block; /* sits right after text */
+        flex-direction: column;
+        vertical-align: top; /* aligns to top of text */
+        /* small gap after text */
+      }
+      .rope {
+        width: 0.5rem;
+        height: 0.5rem;
+        perspective: 20rem;
+      }
+      .crop {
+        height: 1100%;
+        width: 1100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotate3d(2, 2, -1, 60deg);
+      }
+      .bodo {
+        position: absolute;
+        background-size: 100% 100%;
+      }
+      /* Body aligned to start of container */
+      .crop .head {
+        width: 26%;
+        height: 80%;
+        left: 0; /* start at left edge */
+        bottom: 50%;
+        background-image: url(fir_body.png);
+        transform: none; /* remove centering */
+      }
+      /* Left wing placed just before body */
+      .crop .left_wing {
+        width: 37%; /* proportional width */
+        height: 100%;
+        left: -26%; /* shift left of body */
+        bottom: 50%;
+        background-image: url(left_wing_3.png);
+        animation: lanimate 2s ease-in-out infinite;
+        transform-origin: right;
+      }
+      @keyframes lanimate {
+        0% {
+          transform: rotate3d(0, 1, 0, 90deg);
+        }
+        50% {
+          transform: rotate3d(0, 1, 0, 10deg);
+        }
+        100% {
+          transform: rotate3d(0, 1, 0, 90deg);
+        }
+      }
+      /* Right wing placed immediately after body */
+      .crop .right_wing {
+        width: 37%; /* proportional width */
+        height: 100%;
+        bottom: 50%;
+        left: 14%; /* start right after head */
+        background-image: url(right_wing_1.png);
+        animation: ranimate 2s ease-in-out infinite;
+        transform-origin: left;
+      }
+      @keyframes ranimate {
+        0% {
+          transform: rotate3d(0, 1, 0, -90deg);
+        }
+        50% {
+          transform: rotate3d(0, 1, 0, -10deg);
+        }
+        100% {
+          transform: rotate3d(0, 1, 0, -90deg);
+        }
+      }
+      .highlight {
+        color: coral;
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      .canvas-text span {
+        color: coral;
+      }
+      #fadeImage {
+        opacity: 0;
+        transform: translateY(50px);
+        width: 100%;
+        max-width: 15rem;
+        display: block;
+        margin: 0 auto;
+        animation: fade-in 0.5s ease forwards;
+      }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      #projects {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        column-gap: 1rem;
+        margin-top: 0.3%;
+        margin-bottom: 0.3%;
+        border-radius: 3%;
+        background-image: url(night.png);
+        background-size: cover;
+      }
+      .project_container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex: 1 1 15rem;
+        max-width: 15rem;
+        min-width: 12.5rem;
+        margin-left: 0.5rem;
+        border-radius: 1rem;
+        padding: 0.25rem;
+        margin-right: 0.5rem;
+        margin-top: 0%;
+        background-color: transparent;
+        box-sizing: border-box;
+      }
+      .project-image {
+        width: 100%;
+        height: 10rem;
+        border-radius: 1.2em;
+        object-fit: cover;
+        display: block;
+      }
+      .project_container h3 {
+        width: 80%;
+        text-align: center;
+        color: antiquewhite;
+      }
+      .project-imgi {
+        height: 20em;
+        width: auto;
+        width: 100%;
+        box-shadow: 0 0 2.36em rgba(1, 0, 0, 2);
+      }
+      #edu {
+        display: flex;
+        padding: 1% 1%;
+        justify-content: flex-start;
+        background-image: url(Firefly_3.jpg);
+        background-size: cover;
+        align-items: center;
+      }
+      .project_contai {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 70%;
+        height: auto;
+        /* background-image: url(edu.jpg); */
+        border-radius: 1.25em;
+        background-color: transparent;
+        padding: 2em;
+      }
+      .carols {
+        margin: auto;
+        width: 40em; /* fixed width for demo */
+        /* border: 5px solid red; */
+        background-color: transparent;
+        display: flex;
+        padding: 1em;
+        overflow: hidden;
+      }
+      .grouper {
+        display: flex;
+        gap: 1em;
+        animation: scroll 10s linear infinite;
+        padding-right: 1em;
+      }
+      @keyframes scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      .card {
+        height: auto;
+        width: auto;
+        padding: 0.5em;
+        background: transparent;
+        color: antiquewhite;
+        font-size: 1rem;
+        border-radius: 0.2em;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .cert_item:hover {
+        filter: brightness(1.5);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        transform: scale(1.02);
+      }
+      .cert_logo {
+        height: 10rem;
+        transform-style: preserve-3d;
+        width: auto;
+        animation: rotator 3s linear infinite;
+      }
+      @keyframes rotator {
+        from {
+          transform: rotateY(0deg);
+        }
+        to {
+          transform: rotateY(360deg);
+        }
+      }
+
+      .top_link:hover {
+        color: rebeccapurple;
+        transform: scale(1.5);
+        padding: 1em;
+        background-color: coral;
+        border-radius: 20em;
+        text-shadow:
+          0 0 10px rgba(231, 111, 81, 0.8),
+          0 0 20px rgba(231, 111, 81, 0.6);
+      }
+    </style>
+  </head>
+  <body style="background-color: black">
+    <header>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#exp">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#edu">Education</a>
+        <a href="#cert">Certifications</a>
+      </nav>
+    </header>
+    <div id="wrapper">
+      <div id="content">
+        <main>
+          <section id="home">
+            <h1
+              style="
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                text-align: start;
+                margin: 1.5%;
+                margin-left: 4%;
+                color: teal;
+                font-family:
+                  Franklin Gothic Medium,
+                  Arial Narrow,
+                  Arial,
+                  sans-serif;
+                font-size: 250%;
+              "
+              class="title_card"
+            >
+              Portfolio
+            </h1>
+            <div class="profile-container" style="margin-top: 2em">
+              <div class="pro_sub_cont">
+                <img src="back_oplic.png" class="pro_img" alt="profile_pic" />
+              </div>
+              <div class="pro_sub_test">
+                <h1 class="profile_h1">Peruru Sai Kartheek Reddy</h1>
+                <h2 class="profile_h2">
+                  I'm a
+                  <span style="color: coral"
+                    >Software Development Engineer In Test</span
+                  >
+                  <div id="my-container">
+                    <div class="rope">
+                      <div class="crop">
+                        <div class="left_wing bodo"></div>
+                        <div class="head bodo"></div>
+                        <div class="right_wing bodo"></div>
+                      </div>
+                    </div>
+                  </div>
+                </h2>
+                <p class="nav_p">
+                  <span style="color: #b87a3b"
+                    >SDET / QA Automation Engineer </span
+                  >with 3 years of experience in automation frameworks using
+                  Java, Selenium, TestNG, and Cucumber. Skilled in API testing
+                  (Postman, SoapUI), performance testing (JMeter), and CI/CD
+                  pipelines (Jenkins, Git, Maven). Experienced in Agile/DevOps,
+                  driving test coverage, diagnostics, and optimized
+                  <span style="color: #e76f51"
+                    >automation across mobile, web, and enterprise
+                    applications</span
+                  >. Strong background in designing test conditions, scripts,
+                  and data sets for comprehensive quality assurance.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="carols"
+              style="width: 100%; padding: 0.5em; font-weight: 100; margin: 0%"
+            >
+              <div
+                class="grouper"
+                style="animation: scroll 20s linear infinite"
+              >
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Programming & Automation:
+                  <span style="color: #dcdcdc">
+                    Java, Selenium WebDriver, TestNG, Cucumber (BDD/Gherkin),
+                    Tosca, SDET (Software Development Engineer in Test),
+                    Regression Suite Automation.
+                  </span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  API Testing:
+                  <span style="color: #dcdcdc"
+                    >REST (CRUD), SOAP (WSDL), PostMan, SoapUI.</span
+                  >
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  DevOps & CI/CD:
+                  <span style="color: #dcdcdc"
+                    >Jenkins, Git, Maven, BitBucket.</span
+                  >
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Performance & Non-Functional:
+                  <span style="color: #dcdcdc">JMeter, Postman.</span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Test Management:
+                  <span style="color: #dcdcdc">Jira, qTest, Octane.</span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Other:
+                  <span style="color: #dcdcdc"
+                    >SQL, Linux scripting, Generative AI.</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="grouper"
+                aria-hidden="true"
+                style="animation: scroll 20s linear infinite"
+              >
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Programming & Automation:
+                  <span style="color: #dcdcdc">
+                    Java, Selenium WebDriver, TestNG, Cucumber (BDD/Gherkin),
+                    Tosca, SDET (Software Development Engineer in Test),
+                    Regression Suite Automation.
+                  </span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  API Testing:
+                  <span style="color: #dcdcdc"
+                    >REST (CRUD), SOAP (WSDL), PostMan, SoapUI.</span
+                  >
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  DevOps & CI/CD:
+                  <span style="color: #dcdcdc"
+                    >Jenkins, Git, Maven, BitBucket.</span
+                  >
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Performance & Non-Functional:
+                  <span style="color: #dcdcdc">JMeter, Postman.</span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Test Management:
+                  <span style="color: #dcdcdc">Jira, qTest, Octane.</span>
+                </div>
+                <div
+                  class="card"
+                  style="
+                    color: black;
+                    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+                  "
+                >
+                  Other:
+                  <span style="color: #dcdcdc"
+                    >SQL, Linux scripting, Generative AI.</span
+                  >
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="exp">
+            <canvas id="sequence"></canvas>
+            <div class="canvas-text"></div>
+          </section>
+          <section id="projects">
+            <h2
+              class="draft"
+              style="
+                text-align: center;
+                color: chocolate;
+                top: 0%;
+                padding-top: 2%;
+                bottom: 0%;
+                width: 100%;
+                font-size: 2rem;
+                margin: 0;
+              "
+            >
+              Projects
+            </h2>
+            <div class="project_container">
+              <img class="project-image" src="mew.jpg" alt="Project 1" />
+              <h3>Project:<span style="color: coral">Mew</span></h3>
+              <p
+                style="
+                  color: antiquewhite;
+                  font-family: &quot;Times New Roman&quot;, Times, serif;
+                "
+              >
+                lightweight, efficient, and privacy‑focused Browser<br />role:<span
+                  style="color: coral"
+                  >Developer & QA</span
+                >
+                <br />
+                > Cross‑Browser & Non‑Functional Testing: Executed automated
+                test suites using Selenium to validate rendering and performance
+                across multiple browsers.<br />
+                > Compatibility Testing: Verified app stability and
+                functionality across all Android versions 8.0 and above,
+                ensuring broad device coverage.<br />
+                > UX/UI Validation: Conducted interface testing across different
+                screen sizes and orientations, ensuring consistent user
+                experience across all axes.
+              </p>
+            </div>
+            <div class="project_container">
+              <img class="project-image" src="pelika.jpg" alt="Project 2" />
+              <h3>Project:<span style="color: coral">Pelika</span></h3>
+              <p
+                style="
+                  color: antiquewhite;
+                  font-family: &quot;Times New Roman&quot;, Times, serif;
+                "
+              >
+                a general purpose ai assistant with reading function for lower
+                android version<br />role:<span style="color: coral"
+                  >Developer & QA</span
+                ><br />
+                > API Testing: Conducted manual and automated end‑to‑end API
+                testing using Postman and SoapUI, ensuring robust
+                request/response validation.<br />
+                > Authentication Testing: Verified login, session management,
+                and token handling with extreme care to prevent
+                vulnerabilities.<br />
+                > Performance Validation: Executed stress, load, and performance
+                testing with JMeter, identifying bottlenecks and validating
+                scalability under peak usage.<br />
+                >Compatibility Testing: Ensured desired functionality on Android
+                8.0+ and Other devices
+              </p>
+            </div>
+            <div class="project_container">
+              <img class="project-image" src="block.jpg" alt="Project 3" />
+              <h3>
+                Project:<span style="color: coral"
+                  >Efficient Maintenance of Hospital Records by Entrusted Proof
+                  of Work Algorithm in Block Chain Technology</span
+                >
+              </h3>
+
+              <a
+                href="https://link.springer.com/chapter/10.1007/978-3-031-23683-9_25"
+                class="top_link"
+                style="
+                  text-decoration: none;
+                  color: silver;
+                  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+                  display: inline-block;
+                  margin-top: 20px; /* adjust spacing here */
+                "
+              >
+                Link of publication
+              </a>
+            </div>
+          </section>
+          <section id="edu">
+            <div class="project_contai">
+              <div
+                class="project-imgi"
+                style="
+                  background-image: url(edu_org.png);
+                  background-size: cover;
+                "
+              >
+                <div class="edu-heading" style="margin: 1em">
+                  <h1>Education</h1>
+                  <h3>
+                    Degree:
+                    <span style="color: goldenrod">Bachelor of Technology</span>
+                  </h3>
+                  <h3>
+                    University:
+                    <span style="color: navy"
+                      >SRM Institute of Science and Technology</span
+                    >
+                  </h3>
+                  <h4>Period: <span style="color: navy"> 2018-2022</span></h4>
+                </div>
+              </div>
+              <div class="carols">
+                <div class="grouper">
+                  <div class="card">Problem-solving</div>
+                  <div class="card">Analytical thinking</div>
+                  <div class="card">Initiative</div>
+                  <div class="card">Teamwork</div>
+                  <div class="card">Leadership</div>
+                  <div class="card">Attention to detail</div>
+                  <div class="card">Adaptability</div>
+                  <div class="card">Critical thinking</div>
+                  <div class="card">Communication skills</div>
+                </div>
+                <div class="grouper" aria-hidden="true">
+                  <div class="card">Problem-solving</div>
+                  <div class="card">Analytical thinking</div>
+                  <div class="card">Initiative</div>
+                  <div class="card">Teamwork</div>
+                  <div class="card">Leadership</div>
+                  <div class="card">Attention to detail</div>
+                  <div class="card">Adaptability</div>
+                  <div class="card">Critical thinking</div>
+                  <div class="card">Communication skills</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section
+            id="cert"
+            style="
+              padding: 1em;
+              background:
+                linear-gradient(to top, black, transparent),
+                url(&quot;edu.jpg&quot;);
+              box-sizing: border-box;
+              flex-direction: column;
+              display: flex;
+            "
+          >
+            <div
+              class="cert_part"
+              style="
+                background-image: url(edu.jpg);
+                width: auto;
+                min-height: 50vh;
+                border-radius: 2em;
+                margin: 1em;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 1em;
+              "
+            >
+              <div style="margin: 2rem; margin-right: 15rem">
+                <div><h1 style="color: aliceblue">Certifications</h1></div>
+                <div
+                  class="cert_item"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 7em;
+                    background-image:
+                      linear-gradient(
+                        rgba(10, 10, 10, 0.6),
+                        rgba(250, 247, 247, 0.6)
+                      ),
+                      url(opera_he.jpg);
+                    background-size: cover;
+                    background-position: center;
+
+                    padding: 0.5em;
+                    margin: 1em;
+                  "
+                >
+                  <span class="cert_title" style="flex: 1; color: #e0d1b8"
+                    >Certified Tester Foundation Level v4.0 from ISTQB</span
+                  >
+                  <span
+                    class="cert_date"
+                    style="
+                      width: 7.5em;
+                      text-align: right;
+                      color: antiquewhite;
+                      font-style: italic;
+                    "
+                    >JAN 2026</span
+                  >
+                </div>
+
+                <div
+                  class="cert_item"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 7em;
+                    background-image:
+                      linear-gradient(
+                        rgba(10, 10, 10, 0.6),
+                        rgba(250, 247, 247, 0.6)
+                      ),
+                      url(opera_he.jpg);
+                    padding: 0.5em;
+                    margin: 1em;
+                  "
+                >
+                  <span class="cert_title" style="flex: 1; color: #e0d1b8"
+                    >Core Java for Android App Development</span
+                  >
+                  <span
+                    class="cert_date"
+                    style="
+                      width: 7.5em;
+                      text-align: right;
+                      color: antiquewhite;
+                      font-style: italic;
+                    "
+                    >AUG 2025</span
+                  >
+                </div>
+                <div
+                  class="cert_item"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 7em;
+                    background-image:
+                      linear-gradient(
+                        rgba(10, 10, 10, 0.6),
+                        rgba(250, 247, 247, 0.6)
+                      ),
+                      url(opera_he.jpg);
+                    padding: 0.5em;
+                    margin: 1em;
+                  "
+                >
+                  <span class="cert_title" style="flex: 1; color: #e0d1b8"
+                    >Software Testing With Selenium Web Driver</span
+                  >
+                  <span
+                    class="cert_date"
+                    style="
+                      width: 7.5em;
+                      text-align: right;
+                      color: antiquewhite;
+                      font-style: italic;
+                    "
+                    >OCT 2025</span
+                  >
+                </div>
+
+                <div
+                  class="cert_item"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 7em;
+                    background-image:
+                      linear-gradient(
+                        rgba(10, 10, 10, 0.6),
+                        rgba(250, 247, 247, 0.6)
+                      ),
+                      url(opera_he.jpg);
+                    padding: 0.5em;
+                    margin: 1em;
+                  "
+                >
+                  <span class="cert_title" style="flex: 1; color: #e0d1b8"
+                    >Gen AI for Prompt Engineering</span
+                  >
+                  <span
+                    class="cert_date"
+                    style="
+                      width: 7.5em;
+                      text-align: right;
+                      color: antiquewhite;
+                      font-style: italic;
+                    "
+                    >NOV 2025</span
+                  >
+                </div>
+                <div
+                  class="cert_item"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    border-radius: 7em;
+                    background-image:
+                      linear-gradient(
+                        rgba(10, 10, 10, 0.6),
+                        rgba(250, 247, 247, 0.6)
+                      ),
+                      url(opera_he.jpg);
+                    padding: 0.5em;
+                    margin: 1em;
+                  "
+                >
+                  <span class="cert_title" style="flex: 1; color: #e0d1b8"
+                    >Website Testing for Engineers</span
+                  >
+                  <span
+                    class="cert_date"
+                    style="
+                      width: 7.5em;
+                      text-align: right;
+                      color: antiquewhite;
+                      font-style: italic;
+                    "
+                    >NOV 2025</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="cert_second_part"
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between; /* text left, image right */
+                align-items: center;
+                width: 100%;
+              "
+            >
+              <div style="flex: 1; text-align: end">
+                <img
+                  src="logo_cert.png"
+                  class="cert_logo"
+                  alt="Logo_position"
+                />
+              </div>
+
+              <div style="flex: 1; text-align: center">
+                <h3 style="color: grey">contacted on <br /></h3>
+                <h5 style="color: mediumaquamarine">suyyodana@gmail.com</h5>
+                <h5 style="color: mediumaquamarine">
+                  sahastrachakra@gmail.com
+                </h5>
+                <a
+                  href="Resume_of_Sai Kartheek_Reddy.pdf"
+                  target="_blank"
+                  style="text-decoration: double; color: gainsboro"
+                  class="top_link"
+                >
+                  View Resume
+                </a>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
     <script>
-      anchors.add();
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+      ScrollSmoother.create({
+        wrapper: "#wrapper",
+        content: "#content",
+        smooth: 1.5,
+        effects: true,
+        fixedElements: "header",
+      });
+
+      const canvas = document.getElementById("sequence");
+      const textDiv = document.querySelector(".canvas-text");
+
+      const context = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const frameCount = 801;
+      const images = [];
+      let currentFrame = 0;
+
+      for (let i = 100; i <= frameCount; i++) {
+        const img = new Image();
+        img.src = `Ace/Firefly_${i}.jpg`;
+        images.push(img);
+      }
+
+      function render(index) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        const img = images[index];
+        if (img && img.complete) {
+          context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      images[0].onload = () => render(0);
+      const captions = [
+        " ",
+        "<span>Work Experience</span><br><br>" +
+          "<span>Freelance Android Developer & QA Lead</span><br>2025 – present |  India<br><br>" +
+          "Designed and planned test conditions, test scripts, and test data sets<br>" +
+          "Delivered QA services for local businesses, focusing on billing systems and UI validation.<br>" +
+          "Designed and executed functional, regression, and automation test cases using Selenium, JUnit, and Postman.<br>" +
+          "Conducted UI/UX testing to improve usability and reduce customer complaints.",
+
+        "Applied boundary value analysis and equivalence partitioning to validate critical workflows.<br>" +
+          "Collaborated with developer teams to ensure smooth deployment and release readiness.<br>" +
+          "Programmatically tested products, measuring test coverage, developing optimized automation frameworks,<br>" +
+          "and driving testability and diagnostic improvements.",
+
+        "<span>Key QA Insights & Contributions:</span><br><br>" +
+          "Cross‑Browser & Non‑Functional Testing: Automated suites with Selenium to validate rendering and performance.<br>" +
+          "Compatibility Testing: Verified app stability across Android 8.0+.<br>" +
+          "UX/UI Validation: Tested interfaces across screen sizes and orientations.<br>" +
+          "Load & Stress Testing: Applied JMeter to simulate high‑traffic scenarios.<br>" +
+          "Release Readiness: Delivered bug reports and collaborated with developers for smooth Play Store deployment.",
+
+        "<span>Software Test Engineer</span><br><span>Amdocs DVCI LLP</span> | Pune, Maharashtra, India  2024 – 2025  <br><br>" +
+          "Designed and executed manual & automated test cases.<br>" +
+          "Enhanced hybrid automation frameworks (Java, Selenium, TestNG, Cucumber).<br>" +
+          "Integrated CI/CD pipelines (Jenkins, Maven, Git, BitBucket).<br>" +
+          "Conducted root cause analysis and partnered with developers for defect resolution.<br>" +
+          "Performed non-functional testing (Performance Centre).<br>" +
+          "Leveraged Generative AI to optimize test design & execution.<br>" +
+          "Implemented regression suite automation, reducing execution time by 50%.<br>" +
+          "Collaborated with Scrum teams, aligning QA with Agile and DevOps.",
+
+        "<span>Test Associate Engineer</span><br><span>Amdocs DVCI LLP </span>| Pune, Maharashtra, India  2022 – 2024<br><br>" +
+          "Automated user testing flows with Java, Cucumber, and Gherkin.<br>" +
+          "Designed & executed test scenarios for new features (MTV, origination products, UI flows).<br>" +
+          "Conducted non-functional testing for scalability, portability, and security.<br>" +
+          "Performed functional testing (unit, sanity, regression, integration).<br>" +
+          "Developed reusable test scripts and automation frameworks for Telecom apps.<br>" +
+          "Tracked defects in Jira & qTest, publishing RCA reports.<br>" +
+          "Supported CR demos and stakeholder sign-offs.<br>" +
+          "Executed REST API CRUD and SOAP WSDL testing.<br>" +
+          "Conducted knowledge transfer sessions to strengthen team understanding.",
+        "                   ",
+      ];
+
+      ScrollTrigger.create({
+        trigger: "#exp",
+        start: "top top",
+        end: "+=4000",
+        scrub: true,
+        pin: true,
+        onUpdate: (self) => {
+          const frameIndex = Math.floor(self.progress * (images.length - 1));
+          if (frameIndex !== currentFrame) {
+            render(frameIndex);
+            currentFrame = frameIndex;
+          }
+
+          const textIndex = Math.floor(self.progress * (captions.length - 1));
+          textDiv.innerHTML = captions[textIndex]; // <br> tags render as line breaks
+
+          gsap.to(textDiv, { opacity: 1, duration: 0 });
+        },
+      });
+
+      gsap.to(".canvas-text", {
+        opacity: 1,
+        scrollTrigger: {
+          trigger: "#exp",
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+        },
+      });
+
+      gsap.to(canvas, {
+        opacity: 0,
+        scrollTrigger: {
+          trigger: "#projects",
+          start: "80% center",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        render(currentFrame);
+      });
+      gsap.utils.toArray(".project_container").forEach((div) => {
+        gsap.set(div, {
+          opacity: 0,
+          y: 50,
+        });
+
+        gsap.to(div, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 1,
+          ease: "power2.out",
+
+          scrollTrigger: {
+            trigger: div,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play reverse play reverse",
+          },
+        });
+      });
+      gsap.utils.toArray(".project_contai").forEach((div) => {
+        gsap.set(div, {
+          opacity: 0,
+          x: -50,
+        });
+
+        gsap.to(div, {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          delay: 1,
+          ease: "power3.out",
+
+          scrollTrigger: {
+            trigger: div,
+            start: "top 60%",
+            toggleActions: "play reverse play reverse",
+          },
+        });
+      });
+
+      gsap.utils.toArray(".cert_item").forEach((div, i) => {
+        gsap.set(div, {
+          opacity: 0,
+          y: 30,
+        });
+
+        gsap.to(div, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: i * 0.3,
+          scrollTrigger: {
+            trigger: "#cert",
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
     </script>
   </body>
 </html>
